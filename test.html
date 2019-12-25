@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="amcharts4/core.js"></script>
+<script src="amcharts4/charts.js"></script>
+<div id="chartdiv" style="height: 700px; width: 100%"></div>
+<script>
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+    chart.data = [{
+        "country": "Li",
+        "litres": 1
+    }, {
+        "country": "Czechia",
+        "litres": 301
+    }, {
+        "country": "Ireland",
+        "litres": 201
+    }, {
+        "country": "Germany",
+        "litres": 165
+    },  {
+        "country": "UK",
+        "litres": 99
+    }, {
+        "country": "Belgium",
+        "litres": 60
+    }, {
+        "country": "The Netherlands",
+        "litres": 50
+    }];
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = "country";
+    categoryAxis.title.text = "Countries";
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+    valueAxis.title.text = "Litres sold (M)";
+
+
+    var series = chart.series.push(new am4charts.ColumnSeries());
+    series.name = "Sales";
+    series.columns.template.tooltipText = "Series: {name}\nCategory: {categoryX}\nValue: {valueY}";
+    series.columns.template.fill = am4core.color("#249bb3"); // fill
+    series.dataFields.valueY = "litres";
+    series.dataFields.categoryX = "country";
+
+
+</script>
+
+</body>
+</html>
