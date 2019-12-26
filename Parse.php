@@ -1,63 +1,54 @@
 <?php
-require_once ('Curl.php');
+require_once('Curl.php');
 require_once('vendor/autoload.php');
-include('bd.php');
+require_once('config.php');
+
 use Illuminate\Database\Capsule\Manager as Capsule;
+
 class Parse
 {
-    private $xml;
-    private $document;
-    private $text;
-    private $img;
+    private $post;
 
     public function __construct(Curl $post)
     {
+        $this->post = $post;
+        $this->parseData();
 
-        $xml = $post->returnCurl();
-        $this->xml = iconv('Windows-1251','UTF-8',$xml);
-        //file_put_contents('test.txt', $this->xml);
+    }
 
-        $data = new SimpleXMLElement($this->xml);
-            //file_put_contents('test.txt', $xmll);
-            foreach ($data->records->record as $key){
+    private function parseData(): void
+    {
+        $xml = $this->post->returnCurl();
+
+        $data = $this->getXML($xml);
+        foreach ($data->records->record as $key) {
+            if ($key->price_m2) {
+                $round = $this->roundPrice($key->price_m2);
                 Capsule::table('apartment')->updateOrInsert(
-                    ['unid' => $key->unid, 'room' => $key->rooms, 'price_m' => $key->price_m2],
+                    ['unid' => $key->unid, 'room' => $key->rooms, 'price_m' => $key->price_m2, 'price_round' => $round],
                     ['unid' => $key->unid]
                 );
             }
 
-
+        }
     }
 
-    private function validate($validate)
+    private function getXML($xml): ?object
     {
-        $key = key($validate);
-        $url = str_replace('_', '.', $key);
-        $result = filter_var($url, FILTER_VALIDATE_URL);
-        return $result;
+        return new SimpleXMLElement($xml);
     }
 
-   
-
-    private function parseText()
+    private function roundPrice($number): int
     {
-        $document = $this->document;
-        $text = $document->find('record')->text();
-        $this->text = $text;
-        return $text;
-
+        if ($number < 50) {
+            return 50;
+        } else {
+            $result = round($number / 50);
+            return $result * 50;
+        }
     }
-
-   
-
-    public function parse()
-    {
-        $this->parseText();
-
-    }
-
-
 
 }
-$a = new Parse(new Curl(1));
+
+
 

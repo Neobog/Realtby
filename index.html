@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="amcharts4/core.js"></script>
+<script src="amcharts4/charts.js"></script>
+<div id="chartdiv" style="height: 700px; width: 900px"></div>
+<script>
+
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+    // получение ответа от Realty :json
+    function getValue() {
+        let select = document.getElementById("room");
+        let value = select.options[select.selectedIndex].value;
+
+        fetch('Realty.php?client_id=' + value + '').then(response => response.json()).then(commits => chart.data = commits);
+    }
+
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = "price_round";
+    categoryAxis.title.text = "Price";
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+    valueAxis.title.text = "Count";
+
+
+    var series = chart.series.push(new am4charts.ColumnSeries());
+    //series.name = "Sales";
+    series.columns.template.tooltipText = "Стоимость м.кв.: {categoryX}\nКоличество: {valueY}";
+    series.columns.template.fill = am4core.color("#249bb3"); // fill
+    series.dataFields.valueY = "user_count";
+    series.dataFields.categoryX = "price_round";
+
+
+</script>
+<div><select id="room" onclick="getValue()">
+    <option value=1>Однокомнатная</option>
+    <option value=2>Двухкомнатная</option>
+    <option value=3>Трёхкомнатная</option>
+</select>
+    <script>
+
+    </script>
+</div>
+</body>
+</html>
