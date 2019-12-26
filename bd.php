@@ -18,19 +18,18 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 //var_dump(in_array('aurelio', $array, true));
 //echo 'first professional web developer on this computer';
 $capsule = new Capsule();
-$test = $capsule->addConnection(['driver' => 'pgsql',
+$test = $capsule->addConnection(['driver' => 'mysql',
     'host' => 'localhost',
-    'database' => 'bot',
-    'username' => 'admin',
-    'password' => 'agent',
+    'database' => 'test',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
     'prefix' => '']);
 
 // Make this Capsule instance available globally via static methods... (optional)
 $capsule->setAsGlobal();
 
-
-var_dump($test);//$capsule = new Capsule();
+//$capsule = new Capsule();
 //$test = $capsule->addConnection(['driver'    => 'pgsql',
 //    'host'      => 'localhost',
 //    'database'  => 'bot',
@@ -41,10 +40,7 @@ var_dump($test);//$capsule = new Capsule();
 //var_dump($test);
 //$data = Capsule::table('city.cards')->get();
 //var_dump($data);
-$data = Capsule::table('city.cards')->get();
-foreach ($data as $user) {
-    echo $user->name;
-}
+
 //var_dump($data);
 //
 //    $dbh = new PDO('pgsql:host=localhost;dbname=bot;user=admin;password=agent');
@@ -55,12 +51,3 @@ foreach ($data as $user) {
 //    }
 //    var_dump($dbh);
 
-
-'create table apartment
-(
-    id      int auto_increment
-        primary key,
-    unid    varchar(20) not null,
-    room    int         not null,
-    price_m int         not null
-);';

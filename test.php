@@ -1,4 +1,9 @@
 <?php
+//include('vendor/autoload.php');
+
+include('bd.php');
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 //function test($A)
 //{
 //    if ((count($A) === 1)) {
@@ -42,6 +47,10 @@
 //    }
 //}
 # Округление целого числа в большую сторону с коэффициентом
-$uno = 1100;
-$result = round($uno/50);
-echo $result * 50;
+// $uno = 1100;
+// $result = round($uno/50);
+// echo $result * 50;
+$data = Capsule::table('apartment')->get();
+foreach ($data as $user) {
+    var_dump($user);
+}

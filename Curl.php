@@ -4,7 +4,7 @@ class Curl
 {
     private $agent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
     private $result;
-    private $count = 3; //limit news
+    private $count = 3; //limit apartment
     private $user;
     private $pass;
     private $room;
@@ -44,6 +44,6 @@ class Curl
 
     public function __destruct()
     {
-        curl_close($this->data);
+        curl_close($this->result);
     }
 }

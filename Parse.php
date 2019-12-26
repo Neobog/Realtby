@@ -1,6 +1,8 @@
 <?php
 require_once ('Curl.php');
 require_once('vendor/autoload.php');
+include('bd.php');
+use Illuminate\Database\Capsule\Manager as Capsule;
 class Parse
 {
     private $xml;
@@ -13,14 +15,15 @@ class Parse
 
         $xml = $post->returnCurl();
         $this->xml = iconv('Windows-1251','UTF-8',$xml);
+        //file_put_contents('test.txt', $this->xml);
 
         $data = new SimpleXMLElement($this->xml);
             //file_put_contents('test.txt', $xmll);
             foreach ($data->records->record as $key){
-                echo '<br>';
-                echo $key->unid;
-                echo '<br>';
-                echo $key->price_m2;
+                Capsule::table('apartment')->updateOrInsert(
+                    ['unid' => $key->unid, 'room' => $key->rooms, 'price_m' => $key->price_m2],
+                    ['unid' => $key->unid]
+                );
             }
 
 
@@ -34,10 +37,7 @@ class Parse
         return $result;
     }
 
-    private function initQuery()
-    {
-        $this->document = phpQuery::newDocument($this->data);
-    }
+   
 
     private function parseText()
     {
@@ -48,26 +48,14 @@ class Parse
 
     }
 
-    private function pasreImage()
-    {
-        $image = $this->document;
-        $img = $image->find('.article__main-image')->find('img')->attr('src');
-        $this->img = $img;
-        return $img;
-    }
+   
 
     public function parse()
     {
-        $text = $this->parseText();
-        var_dump($text);
-        //$image = $this->pasreImage();
+        $this->parseText();
 
     }
 
-    public function __destruct()
-    {
-        $this->document = phpQuery::unloadDocuments();
-    }
 
 
 }
