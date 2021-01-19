@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "illuminate/database": "v6.4.1",
+    "illuminate/database": "v6.20.12",
     "somesh/php-query": "2.0"
   }
 }
