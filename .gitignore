@@ -74,3 +74,5 @@ fabric.properties
 amcharts4/
 vendor/
 test.txt
+composer.phar
+composer.lock

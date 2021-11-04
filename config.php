@@ -4,7 +4,7 @@ include('vendor/autoload.php');
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $capsule = new Capsule();
-$test = $capsule->addConnection(['driver' => 'mysql',
+$capsule->addConnection(['driver' => 'mysql',
     'host' => 'localhost',
     'database' => 'realty',
     'username' => 'realty',

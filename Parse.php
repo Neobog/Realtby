@@ -13,7 +13,6 @@ class Parse
     {
         $this->post = $post;
         $this->parseData();
-
     }
 
     private function parseData(): void
@@ -33,6 +32,9 @@ class Parse
         }
     }
 
+    /**
+     * @throws Exception
+     */
     private function getXML($xml): ?object
     {
         return new SimpleXMLElement($xml);

@@ -1,4 +1,8 @@
 1) Создание БД
+CREATE USER 'realty'@'localhost' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON realty . * TO 'realty'@'localhost';
+   php7.4-mbstring, mysql,curl,xml,pdo
+
 
 create table if not exists realty.apartment
 (

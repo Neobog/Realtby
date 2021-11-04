@@ -2,7 +2,7 @@
 
 class Curl
 {
-    private $agent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
+    private string $agent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
     private $result;
     private $count = 20; //limit apartment
     private $user;
@@ -23,8 +23,7 @@ class Curl
 
     private function createURL(string $host): ?string
     {
-        $url = $host . '?login[user]=' . $this->user . '&login[pass]=' . $this->pass . '&config[tableid]=1&config[type]=1&config[page]=1&config[records-per-page]=' . $this->count . '&select[rooms][e]=' . $this->room . '';
-        return $url;
+        return $host . '?login[user]=' . $this->user . '&login[pass]=' . $this->pass . '&config[tableid]=1&config[type]=1&config[page]=1&config[records-per-page]=' . $this->count . '&select[rooms][e]=' . $this->room . '';
     }
 
 
