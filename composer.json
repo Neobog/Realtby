@@ -11,6 +11,8 @@
   ],
   "require": {
     "illuminate/database": "v6.20.12",
-    "somesh/php-query": "2.0"
+    "somesh/php-query": "2.0",
+    "ext-curl": "*",
+    "ext-simplexml": "*"
   }
 }

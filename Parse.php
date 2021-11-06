@@ -7,7 +7,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Parse
 {
-    private $post;
+    private Curl $post;
 
     public function __construct(Curl $post)
     {
