@@ -1,9 +1,9 @@
 <?php
-require_once('Curl.php');
-require_once('vendor/autoload.php');
-require_once('config.php');
+namespace app;
 
+use Exception;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use SimpleXMLElement;
 
 class Parse
 {
@@ -24,7 +24,7 @@ class Parse
             if ($key->price_m2) {
                 $round = $this->roundPrice($key->price_m2);
                 Capsule::table('apartment')->updateOrInsert(
-                    ['unid' => $key->unid, 'room' => $key->rooms, 'price_m' => $key->price_m2, 'price_round' => $round],
+                    ['unid' => $key->unid, 'room' => $key->rooms, 'price_m' => (int)$key->price_m2, 'price_round' => $round],
                     ['unid' => $key->unid]
                 );
             }
@@ -46,6 +46,7 @@ class Parse
             return 50;
         } else {
             $result = round($number / 50);
+
             return $result * 50;
         }
     }

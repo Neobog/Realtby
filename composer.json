@@ -10,9 +10,14 @@
     }
   ],
   "require": {
-    "illuminate/database": "v6.20.12",
-    "somesh/php-query": "2.0",
+    "illuminate/database": "*",
     "ext-curl": "*",
     "ext-simplexml": "*"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "app\\" : "app/"
+    }
   }
 }

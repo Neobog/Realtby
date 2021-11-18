@@ -1,0 +1,1 @@
+<?phprequire_once('config.php');use app\Realty;$data = new Realty($_REQUEST);$data->showAmChartData();

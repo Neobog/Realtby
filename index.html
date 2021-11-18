@@ -17,7 +17,7 @@
         let select = document.getElementById("room");
         let value = select.options[select.selectedIndex].value;
 
-        fetch('Realty.php?client_id=' + value + '').then(response => response.json()).then(commits => chart.data = commits);
+        fetch('realty.php?rooms=' + value).then(response => response.json()).then(commits => chart.data = commits);
     }
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());

@@ -1,6 +1,5 @@
 <?php
-require_once('vendor/autoload.php');
-require_once('config.php');
+namespace app;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -11,7 +10,6 @@ class Realty
     public function __construct($room)
     {
         $this->room = $room;
-        echo $this->getAmChartData();
     }
 
     private function getAmChartData(): object
@@ -23,7 +21,10 @@ class Realty
             ->get();
     }
 
+    public function showAmChartData()
+    {
+        echo $this->getAmChartData();
+    }
+
 
 }
-
-$data = new Realty($_REQUEST);
